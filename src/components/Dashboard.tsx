@@ -146,6 +146,42 @@ export const Dashboard: React.FC = () => {
             >
               {generatingWallet ? 'Generating...' : 'Generate Wallet'}
             </button>
+            
+            <div style={{ 
+              marginTop: '30px', 
+              padding: '15px', 
+              backgroundColor: '#f0f9ff', 
+              borderRadius: '8px',
+              border: '1px solid #93c5fd',
+              textAlign: 'left'
+            }}>
+              <p style={{ fontWeight: 'bold', color: '#1e40af', marginBottom: '8px' }}>
+                About Test Networks
+              </p>
+              <p style={{ fontSize: '14px', marginBottom: '10px' }}>
+                This wallet uses the Sepolia test network. After generating your wallet, you'll need test ETH to perform transactions.
+              </p>
+              <p style={{ fontSize: '14px', marginBottom: '10px' }}>
+                You can get free test ETH from:
+              </p>
+              <a 
+                href="https://cloud.google.com/application/web3/faucet" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-block',
+                  backgroundColor: '#3b82f6',
+                  color: 'white',
+                  padding: '8px 16px',
+                  borderRadius: '6px',
+                  textDecoration: 'none',
+                  fontWeight: 'bold',
+                  fontSize: '14px'
+                }}
+              >
+                Google Web3 Faucet
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -224,6 +260,41 @@ export const Dashboard: React.FC = () => {
                 </p>
                 <p><strong>Network:</strong> {walletData.getWalletBalance.network}</p>
                 <p><strong>Last Updated:</strong> {walletData.getWalletBalance.lastUpdated ? formatDate(walletData.getWalletBalance.lastUpdated.toString()) : 'N/A'}</p>
+                
+                {(walletData.getWalletBalance.network?.toLowerCase().includes('sepolia') || 
+                  walletData.getWalletBalance.network?.toLowerCase().includes('testnet')) && (
+                  <div className="faucet-section" style={{ 
+                    marginTop: '20px', 
+                    padding: '15px', 
+                    backgroundColor: '#f0f9ff', 
+                    borderRadius: '8px',
+                    border: '1px solid #93c5fd'
+                  }}>
+                    <p style={{ fontWeight: 'bold', color: '#1e40af', marginBottom: '8px' }}>
+                      Need test ETH?
+                    </p>
+                    <p style={{ fontSize: '14px', marginBottom: '10px' }}>
+                      This is a testnet wallet. Get free Sepolia ETH to test your wallet functionality.
+                    </p>
+                    <a 
+                      href="https://cloud.google.com/application/web3/faucet" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      style={{
+                        display: 'inline-block',
+                        backgroundColor: '#3b82f6',
+                        color: 'white',
+                        padding: '8px 16px',
+                        borderRadius: '6px',
+                        textDecoration: 'none',
+                        fontWeight: 'bold',
+                        fontSize: '14px'
+                      }}
+                    >
+                      Google Web3 Faucet
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           ) : (
@@ -285,6 +356,28 @@ export const Dashboard: React.FC = () => {
                 <button type="submit" disabled={transferring} className="transfer-btn">
                   {transferring ? 'Sending...' : 'Send Funds'}
                 </button>
+                
+                <div style={{ 
+                  marginTop: '20px', 
+                  padding: '12px', 
+                  backgroundColor: '#fffbeb', 
+                  borderRadius: '6px',
+                  border: '1px solid #fcd34d',
+                  fontSize: '13px',
+                  color: '#92400e'
+                }}>
+                  <p style={{ fontWeight: 'bold', marginBottom: '5px' }}>Remember:</p>
+                  <ul style={{ paddingLeft: '20px', margin: '0' }}>
+                    <li>This wallet uses Sepolia test ETH, which has no real value</li>
+                    <li>If your balance is 0, get test ETH from the <a 
+                      href="https://cloud.google.com/application/web3/faucet" 
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ color: '#b45309', textDecoration: 'underline' }}
+                    >Google Web3 Faucet</a></li>
+                    <li>Transactions may take a few minutes to be confirmed</li>
+                  </ul>
+                </div>
               </form>
             )}
           </div>
