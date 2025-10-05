@@ -7,7 +7,9 @@ import {
 import { setContext } from "@apollo/client/link/context";
 
 const httpLink = createHttpLink({
-  uri: import.meta.env.VITE_GRAPHQL_URL || "https://wallet-api-ylqb.onrender.com/graphql",
+  uri:
+    import.meta.env.VITE_GRAPHQL_URL ||
+    "https://wallet-api-ylqb.onrender.com/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
