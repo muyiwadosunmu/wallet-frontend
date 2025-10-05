@@ -48,7 +48,9 @@ function App() {
         <AuthProvider>
           <Router>
             <div className="app">
-              <AppRoutes />
+              <div className="container">
+                <AppRoutes />
+              </div>
             </div>
           </Router>
         </AuthProvider>

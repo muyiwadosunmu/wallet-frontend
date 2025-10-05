@@ -1,6 +1,7 @@
 .dashboard {
   min-height: 100vh;
   background-color: #f8fafc;
+  width: 100%;
 }
 
 .dashboard-header {
@@ -11,6 +12,7 @@
   background: white;
   border-bottom: 1px solid #e2e8f0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
 .dashboard-header h1 {
@@ -37,8 +39,9 @@
 
 .dashboard-content {
   padding: 30px;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .wallet-section,
@@ -49,6 +52,9 @@
   padding: 30px;
   margin-bottom: 30px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .wallet-section h2,
@@ -72,6 +78,8 @@
   grid-template-columns: 1fr 2fr;
   gap: 30px;
   align-items: start;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .balance-card {
@@ -130,7 +138,9 @@
   border-radius: 12px;
   text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
+  max-width: 500px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .no-wallet-card h2 {
@@ -180,6 +190,8 @@
   padding: 25px;
   border-radius: 8px;
   border: 1px solid #e2e8f0;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .form-group {
