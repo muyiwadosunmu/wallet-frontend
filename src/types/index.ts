@@ -56,6 +56,44 @@ export interface CreatedWallet {
   user: User;
 }
 
+// Transaction from Alchemy API
+export interface AlchemyTransaction {
+  hash: string;
+  fromAddress: string;
+  toAddress: string;
+  value: string;
+  status: string;
+  timestamp: string;
+  blockNumber: string;
+  confirmations: number;
+  gasPrice: string;
+  gasUsed: string;
+  asset?: string;
+  category?: string;
+}
+
+// Transaction from Etherscan API
+export interface EtherTransaction {
+  hash: string;
+  from: string;
+  to: string;
+  value: string;
+  blockNumber: string;
+  timeStamp: string;
+  confirmations: number;
+  gas: string;
+  gasUsed: string;
+  transactionIndex: string;
+  isError: string;
+  txreceipt_status: string;
+  blockHash: string;
+  nonce: string;
+  contractAddress?: string;
+  cumulativeGasUsed: string;
+  asset?: string;
+}
+
+// Generic transaction type for backward compatibility
 export interface Transaction {
   hash: string;
   fromAddress: string;
@@ -75,4 +113,8 @@ export interface TransferFundsInput {
   toAddress: string;
   amount: number;
   memo?: string;
+}
+
+export interface TransactionHashResponse {
+  hash: string;
 }

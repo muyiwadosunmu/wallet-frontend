@@ -45,12 +45,6 @@ export const TRANSFER_FUNDS_MUTATION = gql`
   mutation TransferFunds($input: TransferFundsInput!) {
     transferFunds(input: $input) {
       hash
-      fromAddress
-      toAddress
-      value
-      status
-      timestamp
-      blockNumber
     }
   }
 `;
@@ -84,21 +78,21 @@ export const GET_WALLET_BALANCE_QUERY = gql`
   }
 `;
 
-export const GET_TRANSACTION_HISTORY_QUERY = gql`
-  query GetTransactionHistory {
-    getTransactionHistory {
+export const GET_TRANSACTIONS_QUERY = gql`
+  query GetTransactions($page: Int, $pageSize: Int) {
+    getTransactions(page: $page, pageSize: $pageSize) {
       hash
-      fromAddress
-      toAddress
+      from
+      to
       value
-      status
-      timestamp
       blockNumber
+      timeStamp
       confirmations
-      gasPrice
+      gas
       gasUsed
-      asset
-      category
+      transactionIndex
+      isError
+      txreceipt_status
     }
   }
 `;

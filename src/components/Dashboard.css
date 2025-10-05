@@ -38,10 +38,63 @@
 }
 
 .dashboard-content {
-  padding: 30px;
-  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.transactions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.transaction-item {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.tx-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.tx-details {
+  font-size: 14px;
+  color: #4b5563;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+  margin-bottom: 15px;
+  padding-top: 10px;
+  border-top: 1px solid #f3f4f6;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.tx-details p {
+  margin: 0;
+}
+
+.tx-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
 }
 
 .wallet-section,
