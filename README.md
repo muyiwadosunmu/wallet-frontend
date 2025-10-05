@@ -1,34 +1,41 @@
-# Crypto Wallet Frontend
+# Ethereum Wallet Frontend
 
-A React TypeScript application for interacting with a cryptocurrency wallet service through a GraphQL API.
+![React](https://img.shields.io/badge/React-18-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
+![Apollo](https://img.shields.io/badge/Apollo-Client-purple)
+![GraphQL](https://img.shields.io/badge/GraphQL-API-pink)
 
-## Features
+A modern cryptocurrency wallet application built with React and TypeScript. This frontend provides an intuitive interface for managing Ethereum wallets on the Sepolia testnet.
 
-- 🔐 **User Authentication** - Register and login functionality
-- 💼 **Wallet Management** - Generate new wallets and view balances
-- 💸 **Send Funds** - Transfer cryptocurrency to other addresses
-- 📊 **Transaction History** - View all wallet transactions
-- 📱 **Responsive Design** - Mobile-friendly interface
+## ✨ Features
 
-## Tech Stack
+- **User Authentication** - Create an account and securely log in
+- **Wallet Management** - Generate and manage Ethereum wallets
+- **Real-time Balances** - View your ETH balance
+- **Send & Receive** - Transfer ETH to any address
+- **Transaction History** - View your complete transaction history
+- **Test ETH Integration** - Built-in access to Sepolia test ETH faucets
 
-- **React 18** - Frontend framework
-- **TypeScript** - Type safety
-- **Vite** - Build tool and dev server
-- **Apollo Client** - GraphQL client
-- **React Router** - Navigation
-- **CSS3** - Styling
 
-## Prerequisites
 
-- Node.js 16+ 
+## 🔧 Technology Stack
+
+- **Frontend**: React 18, TypeScript, Apollo Client
+- **Build Tools**: Vite
+- **Styling**: Custom CSS
+- **Network**: Sepolia Ethereum Testnet
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v22+)
 - npm or yarn
-- Running GraphQL backend server (see wallet-api project)
 
-## Setup Instructions
+### Installation & Setup
 
-1. **Clone and navigate to the project**
+1. **Clone the repository**
    ```bash
+   git clone https://github.com/yourusername/wallet-frontend.git
    cd wallet-frontend
    ```
 
@@ -37,109 +44,51 @@ A React TypeScript application for interacting with a cryptocurrency wallet serv
    npm install
    ```
 
-3. **Configure GraphQL endpoint**
-   
-   Update the GraphQL URI in `src/lib/apollo-client.ts`:
-   ```typescript
-   const httpLink = createHttpLink({
-     uri: 'http://localhost:3000/graphql', // Update this to your backend URL
-   });
-   ```
-
-4. **Start the development server**
+3. **Start the development server**
    ```bash
    npm run dev
    ```
 
-5. **Open your browser**
+4. **Access the application**
    
-   Navigate to `http://localhost:5173`
+   Open your browser and navigate to: `http://localhost:5173`
 
-## Available Scripts
+## 🌐 API Connection
+
+This application connects to a GraphQL backend API:
+
+- **Repository**: [wallet-api](https://github.com/muyiwadosunmu/wallet-api)
+- **Endpoint**: `https://wallet-api-ylqb.onrender.com/graphql`
+
+## 📋 Available Scripts
 
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
 
-## Project Structure
+
+
+## ⚙️ Configuration
+
+Create a `.env` file in the project root:
 
 ```
-src/
-├── components/         # React components
-│   ├── Auth.css       # Authentication styles
-│   ├── Dashboard.css  # Dashboard styles
-│   ├── Landing.css    # Landing page styles
-│   ├── Dashboard.tsx  # Main wallet dashboard
-│   ├── Landing.tsx    # Landing page
-│   ├── Login.tsx      # Login component
-│   ├── Register.tsx   # Registration component
-│   └── ProtectedRoute.tsx # Route protection
-├── contexts/          # React contexts
-│   └── AuthContext.tsx # Authentication context
-├── hooks/             # Custom React hooks
-│   └── useAuth.ts     # Authentication hook
-├── lib/               # Utilities and configurations
-│   ├── apollo-client.ts # Apollo Client setup
-│   └── graphql.ts     # GraphQL queries/mutations
-├── types/             # TypeScript type definitions
-│   └── index.ts       # Application types
-├── App.tsx            # Main application component
-├── App.css            # Global styles
-└── main.tsx           # Application entry point
+VITE_GRAPHQL_URL=https://wallet-api-ylqb.onrender.com/graphql
 ```
 
-## GraphQL Operations
+## 🧪 Using the Wallet
 
-The application supports the following GraphQL operations:
+After creating your account:
 
-### Mutations
-- `register` - Create a new user account
-- `login` - Authenticate user
-- `generateWallet` - Create a new wallet for the user
-- `transferFunds` - Send cryptocurrency to another address
+1. Generate a new wallet
+2. Get free test ETH from [Google Web3 Faucet](https://cloud.google.com/application/web3/faucet)
+3. Send test transactions between wallets
+4. Track your transactions in the history section
 
-### Queries
-- `me` - Get current user information
-- `getWalletBalance` - Get user's wallet balance
-- `getTransactionHistory` - Get user's transaction history
-- `getTransaction` - Get specific transaction details
-- `getAddressBalance` - Get balance for any address
+## 🔒 Security Features
 
-## Environment Configuration
+- JWT authentication
+- Protected routes
 
-For production deployment, create a `.env` file:
 
-```env
-VITE_GRAPHQL_URL=https://your-api-domain.com/graphql
-```
-
-Then update the Apollo Client configuration to use environment variables.
-
-## Security Features
-
-- JWT token-based authentication
-- Automatic token refresh handling
-- Protected routes requiring authentication
-- Secure local storage for user data
-- GraphQL error handling and user feedback
-
-## Browser Compatibility
-
-- Chrome 88+
-- Firefox 85+
-- Safari 14+
-- Edge 88+
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License.
-# wallet-frontend
+[MIT](LICENSE)

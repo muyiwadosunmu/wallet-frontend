@@ -39,7 +39,7 @@ export const Dashboard: React.FC = () => {
   // Queries
   const { data: walletData, loading: walletLoading, error: walletError, refetch: refetchWallet } = 
     useQuery<WalletBalanceResponse>(GET_WALLET_BALANCE_QUERY, {
-      fetchPolicy: 'network-only', // Don't use cache, always make a network request
+      fetchPolicy: 'network-only', 
       notifyOnNetworkStatusChange: true
     });
 
@@ -105,7 +105,7 @@ export const Dashboard: React.FC = () => {
 
   const formatDate = (dateString: string) => {
     try {
-      // Try parsing as timestamp (seconds since epoch) first
+      // Try parsing as timestamp
       if (dateString.match(/^\d+$/)) {
         return new Date(parseInt(dateString) * 1000).toLocaleString();
       }
@@ -268,7 +268,7 @@ export const Dashboard: React.FC = () => {
               <div className="balance-card">
                 <h3>Balance</h3>
                 <div className="balance-amount">
-                  {walletData.getWalletBalance.formattedBalance || formatValue(walletData.getWalletBalance.balance || '0')} ETH
+                  {walletData.getWalletBalance.formattedBalance || formatValue(walletData.getWalletBalance.balance || '0')}
                 </div>
                 <div className="balance-debug" style={{ fontSize: '10px', opacity: 0.7 }}>
                   Raw: {walletData.getWalletBalance.balance || 'N/A'}
