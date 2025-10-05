@@ -38,10 +38,16 @@ export const Dashboard: React.FC = () => {
 
   // Queries
   const { data: walletData, loading: walletLoading, error: walletError, refetch: refetchWallet } = 
-    useQuery<WalletBalanceResponse>(GET_WALLET_BALANCE_QUERY);
+    useQuery<WalletBalanceResponse>(GET_WALLET_BALANCE_QUERY, {
+      fetchPolicy: 'network-only', // Don't use cache, always make a network request
+      notifyOnNetworkStatusChange: true
+    });
 
   const { data: transactionData, loading: transactionsLoading, refetch: refetchTransactions } = 
-    useQuery<TransactionHistoryResponse>(GET_TRANSACTION_HISTORY_QUERY);
+    useQuery<TransactionHistoryResponse>(GET_TRANSACTION_HISTORY_QUERY, {
+      fetchPolicy: 'network-only',
+      notifyOnNetworkStatusChange: true
+    });
 
   // Mutations
   const [generateWallet, { loading: generatingWallet }] = useMutation<GenerateWalletResponse>(
@@ -97,8 +103,28 @@ export const Dashboard: React.FC = () => {
     return new Date(dateString).toLocaleString();
   };
 
-  const formatValue = (value: string) => {
-    return (parseFloat(value) / 1e18).toFixed(6); // Assuming Wei to ETH conversion
+  const formatValue = (value: string | null | undefined) => {
+    if (!value) return '0.00';
+    
+    const parsedValue = parseFloat(value);
+    if (isNaN(parsedValue)) return '0.00';
+    
+    // Check if the value is already in ETH (small number) or in Wei (large number)
+    if (parsedValue < 1000) {
+      return parsedValue.toFixed(6); // Already in ETH
+    } else {
+      return (parsedValue / 1e18).toFixed(6); // Convert from Wei to ETH
+    }
+  };
+  
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        alert('Address copied to clipboard!');
+      })
+      .catch((err) => {
+        console.error('Failed to copy text: ', err);
+      });
   };
 
   if (walletError && walletError.message.includes('No wallet found')) {
@@ -143,7 +169,23 @@ export const Dashboard: React.FC = () => {
       <div className="dashboard-content">
         {/* Wallet Balance Section */}
         <div className="wallet-section">
-          <h2>Your Wallet</h2>
+          <div className="section-header">
+            <h2>Your Wallet</h2>
+            <button 
+              onClick={() => refetchWallet()} 
+              className="refresh-btn"
+              style={{ 
+                backgroundColor: "#4f46e5", 
+                color: "white",
+                padding: "8px 16px",
+                borderRadius: "6px",
+                border: "none",
+                cursor: "pointer"
+              }}
+            >
+              Refresh Balance
+            </button>
+          </div>
           {walletLoading ? (
             <div className="loading">Loading wallet...</div>
           ) : walletData?.getWalletBalance ? (
@@ -151,7 +193,10 @@ export const Dashboard: React.FC = () => {
               <div className="balance-card">
                 <h3>Balance</h3>
                 <div className="balance-amount">
-                  {formatValue(walletData.getWalletBalance.balance)} ETH
+                  {walletData.getWalletBalance.formattedBalance || formatValue(walletData.getWalletBalance.balance || '0')} ETH
+                </div>
+                <div className="balance-debug" style={{ fontSize: '10px', opacity: 0.7 }}>
+                  Raw: {walletData.getWalletBalance.balance || 'N/A'}
                 </div>
                 {walletData.getWalletBalance.usdValue && (
                   <div className="balance-usd">
@@ -160,9 +205,25 @@ export const Dashboard: React.FC = () => {
                 )}
               </div>
               <div className="wallet-details">
-                <p><strong>Address:</strong> {walletData.getWalletBalance.address}</p>
+                <p>
+                  <strong>Address:</strong> 
+                  <span style={{ marginRight: '10px' }}>{walletData.getWalletBalance.address}</span>
+                  <button 
+                    onClick={() => copyToClipboard(walletData.getWalletBalance.address)}
+                    style={{ 
+                      background: 'none',
+                      border: '1px solid #ccc',
+                      borderRadius: '4px',
+                      padding: '2px 8px',
+                      fontSize: '12px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Copy
+                  </button>
+                </p>
                 <p><strong>Network:</strong> {walletData.getWalletBalance.network}</p>
-                <p><strong>Last Updated:</strong> {formatDate(walletData.getWalletBalance.lastUpdated.toString())}</p>
+                <p><strong>Last Updated:</strong> {walletData.getWalletBalance.lastUpdated ? formatDate(walletData.getWalletBalance.lastUpdated.toString()) : 'N/A'}</p>
               </div>
             </div>
           ) : (
@@ -241,7 +302,7 @@ export const Dashboard: React.FC = () => {
                   <div className="tx-main">
                     <div className="tx-info">
                       <div className="tx-type">
-                        {tx.fromAddress.toLowerCase() === walletData?.getWalletBalance.address.toLowerCase() ? 'Sent' : 'Received'}
+                        {tx.fromAddress.toLowerCase() === walletData?.getWalletBalance?.address?.toLowerCase() ? 'Sent' : 'Received'}
                       </div>
                       <div className="tx-amount">
                         {formatValue(tx.value)} ETH
