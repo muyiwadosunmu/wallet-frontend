@@ -16,7 +16,8 @@ A modern cryptocurrency wallet application built with React and TypeScript. This
 - **Transaction History** - View your complete transaction history
 - **Test ETH Integration** - Built-in access to Sepolia test ETH faucets
 
-
+## Hosted Page on Cloudflare Pages
+https://wallet-app-e8u.pages.dev/
 
 ## 🔧 Technology Stack
 
